@@ -20,6 +20,7 @@ public abstract class BaseSpace : MonoBehaviour
 
     protected virtual void SetUpSpaceType()
     {
+        Debug.Log("dasdasda");
         _spaceType = SpaceTypeEnum.Normal;
     }
 
@@ -28,7 +29,7 @@ public abstract class BaseSpace : MonoBehaviour
         
     }
 
-    public Vector2 GetDir()
+    public virtual Vector2 GetDir()
     {
         Vector2 nextSpace = Vector2.zero;
         switch (_moveDirType)
@@ -50,14 +51,19 @@ public abstract class BaseSpace : MonoBehaviour
                                         transform.position.y - 1.5f);
                 break;
             case MoveDirTypeEnum.RightDown:
-                nextSpace = new Vector2(transform.position.x + 1.4f,
-                                        transform.position.y - 1.4f);
+                nextSpace = new Vector2(transform.position.x + 1.3f,
+                                        transform.position.y - 1.3f);
                 break;
             case MoveDirTypeEnum.LeftDown:
-                nextSpace = new Vector2(transform.position.x - 1.4f,
-                                        transform.position.y - 1.4f);
+                nextSpace = new Vector2(transform.position.x - 1.3f,
+                                        transform.position.y - 1.3f);
                 break;
         }
         return nextSpace;
+    }
+
+    public virtual Vector2 GetShotCutDir()
+    {
+        return Vector2.zero;
     }
 }
