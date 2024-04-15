@@ -9,8 +9,6 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance { get; private set; }
 
-    private Line[] _lines;
-
     private void Awake()
     {
         if (Instance != null)
@@ -19,16 +17,6 @@ public class BoardManager : MonoBehaviour
         }
 
         Instance = this;
-    }
-
-    private void SetLines()
-    {
-        _lines = GetComponentsInChildren<Line>();
-    }
-
-    public Line GetLine(Vector3 playerPos) // 이것들 나중에 다 캐싱
-    {
-        return Physics2D.Raycast(playerPos, Vector3.forward, 10f).transform.parent.GetComponent<Line>();
     }
 
     public BaseSpace GetSpace(Vector3 playerPos) // 이것들 나중에 다 캐싱
