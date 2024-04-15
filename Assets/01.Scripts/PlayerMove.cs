@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Line curLine;
+
     [SerializeField]
-    private GameObject _player; // 일단 직렬화해서 하겟음
+    private int stepCount;
+
+    private int curIdx;
+
+    private void Move()
+    {
+        //curLine.Spaces
+    }
+
 }
