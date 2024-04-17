@@ -6,27 +6,9 @@ using UnityEngine.UIElements;
 
 public abstract class BaseSpace : MonoBehaviour
 {
-    protected SpaceTypeEnum _spaceType;
-    public SpaceTypeEnum SpaceType => _spaceType;
-
     [SerializeField]
     protected MoveDirTypeEnum _moveDirType;
     public MoveDirTypeEnum MoveDirType => _moveDirType;
-
-    private void Start()
-    {
-        SetUpSpaceType();
-    }
-
-    protected virtual void SetUpSpaceType()
-    {
-        _spaceType = SpaceTypeEnum.Normal;
-    }
-
-    private void OnMouseDown()
-    {
-        
-    }
 
     public virtual Vector2 GetDir()
     {

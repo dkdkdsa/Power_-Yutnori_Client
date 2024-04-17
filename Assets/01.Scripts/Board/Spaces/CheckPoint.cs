@@ -53,11 +53,6 @@ public class CheckPoint : BaseSpace
         return base.GetDir(); //아니면 체크 포인트여도 그냥 방향 반환
     }
 
-    protected override void SetUpSpaceType()
-    {
-        _spaceType = SpaceTypeEnum.CheckPoint;
-    }
-
     public void SetIsCheckPointStart() // 마지막으로 도착한 곳이 체크포인트라면 다음에 움직일때 지름길로 움직이도록
     {
         isCheckPointStart = true;

@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class EndPoint : BaseSpace
 {
-    protected override void SetUpSpaceType()
-    {
-        _spaceType = SpaceTypeEnum.EndPoint;
-    }
 }
