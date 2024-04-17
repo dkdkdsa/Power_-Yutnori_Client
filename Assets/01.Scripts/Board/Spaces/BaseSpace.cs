@@ -20,7 +20,6 @@ public abstract class BaseSpace : MonoBehaviour
 
     protected virtual void SetUpSpaceType()
     {
-        Debug.Log("dasdasda");
         _spaceType = SpaceTypeEnum.Normal;
     }
 

@@ -20,7 +20,7 @@ public class BoardManager : MonoBehaviour
         Instance = this;
     }
 
-    public T GetSpace<T>(Vector3 playerPos) where T : BaseSpace// 이것들 나중에 다 캐싱
+    public T GetSpace<T>(Vector3 playerPos) where T : BaseSpace// 이것 나중에 캐싱
     {
         Collider2D collider = Physics2D.Raycast(playerPos, Vector3.forward, 10f)
             .collider;
@@ -34,6 +34,13 @@ public class BoardManager : MonoBehaviour
 
     public Vector2 GetDirFromPlayerPos(Vector3 playerPos)
     {
+        bool isEndSpace = GetSpace<EndPoint>(playerPos) != null;
+
+        if (isEndSpace) // 골인
+        {
+            return Vector2.zero;
+        }
+
         CheckPoint curSpace = GetSpace<CheckPoint>(playerPos);
 
         if (curSpace != null) // 체크 포인트면 체크포인트의 지름길 반환하려고 시도
