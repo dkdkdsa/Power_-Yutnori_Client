@@ -20,7 +20,7 @@ public class NetworkDebug : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
 
-            NetworkManager.Instance.SpawnNetObject("NetObj", Random.insideUnitCircle * 3, Quaternion.identity, NetworkManager.Instance.ClientId);
+            NetworkManager.Instance.SpawnNetObject("Player_Debug", new Vector2(3.744f, -3.69f), Quaternion.identity, NetworkManager.Instance.ClientId);
 
         }
 

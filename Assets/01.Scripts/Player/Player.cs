@@ -2,10 +2,10 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Hardware;
 using UnityEngine;
+using UnityNet;
 
-public class Player : MonoBehaviour
+public class Player : NetBehavior
 {
     [SerializeField]
     private int tempStepCount;
@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+
+        if (!NetObject.IsOwner) return;
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine(Move(tempStepCount));
@@ -46,7 +49,6 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("°ñ");
                 isArrived = true;
-                Destroy(gameObject); // ÀÏ´ÜÀº °Á Áö¿ï°Ô
             }
 
             transform.DOMove(nextDir, moveSpeed);
