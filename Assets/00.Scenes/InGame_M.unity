@@ -336,8 +336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempStepCount: 4
-  moveSpeed: 0
-  movedelay: 0.2
+  moveSpeed: 0.2
+  movedelay: 0.3
 --- !u!212 &286278047
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor.Hardware;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField]
     private int tempStepCount;
