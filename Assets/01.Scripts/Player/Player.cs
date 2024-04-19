@@ -49,6 +49,7 @@ public class Player : NetBehavior
             {
                 Debug.Log("°ñ");
                 isArrived = true;
+                NetObject.Despawn();
             }
 
             transform.DOMove(nextDir, moveSpeed);
