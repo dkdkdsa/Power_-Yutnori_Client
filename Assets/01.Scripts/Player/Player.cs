@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityNet;
 
 public class Player : NetBehavior
@@ -11,6 +12,8 @@ public class Player : NetBehavior
     private int tempStepCount;
 
     private bool isPiecedOnBoard = false;
+    public bool IsPiecedOnBoard => isPiecedOnBoard;
+
     private bool isArrived = false;
 
     [SerializeField]
@@ -18,21 +21,30 @@ public class Player : NetBehavior
     [SerializeField]
     private float movedelay = 0.3f;
 
+    private SpriteRenderer _spriteRenderer;
+
     private void Update()
     {
+        //if (!NetObject.IsOwner) return;
+    }
 
-        if (!NetObject.IsOwner) return;
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            StartCoroutine(Move(tempStepCount));
-        }
+    protected override void Start()
+    {
+        base.Start();
+
+        _spriteRenderer.color = new Color(255, 255, 255, 0.0f);
     }
 
     public IEnumerator Move(int stepCount)
     {
         if(!isPiecedOnBoard)
         {
+            _spriteRenderer.color = Color.white;
             isPiecedOnBoard = true;
             Vector2 nextDir = new Vector2(transform.position.x,
                                         transform.position.y + 1.5f);
@@ -43,23 +55,19 @@ public class Player : NetBehavior
 
         for (int i = 0; i < stepCount; i++)
         {
-            Vector2 nextDir = BoardManager.Instance.GetDirFromPlayerPos(transform.position);
+            Vector2 nextDir = BoardManager.Instance.GetDirFromPlayerPos(transform.position, i);
 
             if(nextDir == Vector2.zero) // °ñÀÎÇÑ°Ü
             {
                 Debug.Log("°ñ");
                 isArrived = true;
+                isPiecedOnBoard = false;
             }
 
             transform.DOMove(nextDir, moveSpeed);
             yield return new WaitForSeconds(movedelay);
         }
 
-        CheckPoint checkPoint = BoardManager.Instance.GetSpace<CheckPoint>(transform.position);
-
-        if (checkPoint != null)
-        {
-            checkPoint.SetIsCheckPointStart();
-        }
+        TurnManager.Instance.ChangeTurn();
     }
 }

@@ -44,7 +44,7 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    public Vector2 GetDirFromPlayerPos(Vector3 playerPos) // 현재 있는 칸에 따른 이동 방향
+    public Vector2 GetDirFromPlayerPos(Vector3 playerPos, int idx) // 현재 있는 칸에 따른 이동 방향
     {
         bool isEndSpace = GetSpace<EndPoint>(playerPos) != null;
 
@@ -55,7 +55,8 @@ public class BoardManager : MonoBehaviour
 
         CheckPoint curSpace = GetSpace<CheckPoint>(playerPos);
 
-        if (curSpace != null) // 체크 포인트면 체크포인트의 지름길 반환하려고 시도
+        if (curSpace != null &&
+            idx == 0) // 체크 포인트이고, 첫번째 움직일때는 지름길 반환
         {
             return curSpace.GetShotCutDir();
         }

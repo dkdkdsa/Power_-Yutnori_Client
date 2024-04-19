@@ -10,34 +10,37 @@ public abstract class BaseSpace : MonoBehaviour
     protected MoveDirTypeEnum _moveDirType;
     public MoveDirTypeEnum MoveDirType => _moveDirType;
 
+    [SerializeField]
+    protected float MoveDistance;
+
     public virtual Vector2 GetDir()
     {
         Vector2 nextSpace = Vector2.zero;
         switch (_moveDirType)
         {
             case MoveDirTypeEnum.Left:
-                nextSpace = new Vector2(transform.position.x - 1.5f,
+                nextSpace = new Vector2(transform.position.x - MoveDistance,
                                         transform.position.y);
                 break;
             case MoveDirTypeEnum.Right:
-                nextSpace = new Vector2(transform.position.x + 1.5f,
+                nextSpace = new Vector2(transform.position.x + MoveDistance,
                                         transform.position.y);
                 break;
             case MoveDirTypeEnum.Up:
                 nextSpace = new Vector2(transform.position.x,
-                                        transform.position.y + 1.5f);
+                                        transform.position.y + MoveDistance);
                 break;
             case MoveDirTypeEnum.Down:
                 nextSpace = new Vector2(transform.position.x,
-                                        transform.position.y - 1.5f);
+                                        transform.position.y - MoveDistance);
                 break;
             case MoveDirTypeEnum.RightDown:
-                nextSpace = new Vector2(transform.position.x + 1.3f,
-                                        transform.position.y - 1.3f);
+                nextSpace = new Vector2(transform.position.x + MoveDistance,
+                                        transform.position.y - MoveDistance);
                 break;
             case MoveDirTypeEnum.LeftDown:
-                nextSpace = new Vector2(transform.position.x - 1.3f,
-                                        transform.position.y - 1.3f);
+                nextSpace = new Vector2(transform.position.x - MoveDistance,
+                                        transform.position.y - MoveDistance);
                 break;
         }
         return nextSpace;
@@ -47,4 +50,5 @@ public abstract class BaseSpace : MonoBehaviour
     {
         return Vector2.zero;
     }
+
 }

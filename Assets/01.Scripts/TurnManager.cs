@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour
         Instance = this;
 
         _curTurnType = TurnType.RedPlayerTurn; // 처음에 레드로 시작
+
     }
 
     public void ChangeTurn()
@@ -27,6 +28,5 @@ public class TurnManager : MonoBehaviour
         _curTurnType =
             _curTurnType == TurnType.RedPlayerTurn ? TurnType.BluePlayerTurn 
                                                      :TurnType.RedPlayerTurn; // 귀찮으니 삼항연산쓰겟음
-        
     }
 }

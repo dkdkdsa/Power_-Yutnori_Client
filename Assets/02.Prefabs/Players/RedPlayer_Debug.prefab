@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 573492239397299501}
   - component: {fileID: 6907241928144889029}
   m_Layer: 0
-  m_Name: Player_Debug
+  m_Name: RedPlayer_Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
