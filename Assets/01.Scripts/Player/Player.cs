@@ -57,11 +57,12 @@ public class Player : NetBehavior
         {
             Vector2 nextDir = BoardManager.Instance.GetDirFromPlayerPos(transform.position, i);
 
-            if(nextDir == Vector2.zero) // ∞Ò¿Œ«—∞‹
+            if(nextDir == Vector2.zero)
             {
-                Debug.Log("∞Ò");
+                Debug.Log("ÏõÄÏßÅ");
                 isArrived = true;
                 isPiecedOnBoard = false;
+                NetObject.Despawn();
             }
 
             transform.DOMove(nextDir, moveSpeed);
