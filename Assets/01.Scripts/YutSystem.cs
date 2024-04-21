@@ -5,12 +5,12 @@ using UnityEngine;
 public enum YutState
 {
 
-    Do,
-    Gay,
-    Girl,
-    Yut,
-    Mo,
-    BackDo,
+    Do = 1,
+    Gay = 2,
+    Girl = 3,
+    Yut = 4,
+    Mo = 6,
+    BackDo = -1,
 
 }
 

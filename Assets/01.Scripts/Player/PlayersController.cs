@@ -43,16 +43,16 @@ public class PlayersController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            PlayerMoveEventHandler();
+            PlayerMoveEventHandler(1);
         }
     }
 
-    public void PlayerMoveEventHandler()
+    public void PlayerMoveEventHandler(int stepCount)
     {
-        SignalHub.OnPlayerMoveEvent?.Invoke();
+        SignalHub.OnPlayerMoveEvent?.Invoke(stepCount);
     }
 
-    private void MovePlayer()
+    private void MovePlayer(int stepCount)
     {
         Player movePlayer = _players[_curTurnType]
                             .Where(p => p.IsPiecedOnBoard)
@@ -63,7 +63,7 @@ public class PlayersController : MonoBehaviour
             movePlayer = _players[_curTurnType][0];
         }
 
-        StartCoroutine(movePlayer.Move(1));
+        StartCoroutine(movePlayer.Move(stepCount));
     }
 
 

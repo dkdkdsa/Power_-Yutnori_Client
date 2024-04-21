@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +10,39 @@ public class YutUI : MonoBehaviour
 
     [SerializeField] private Sprite back, front, backCh;
     private List<Image> yutImages = new();
+    private List<Yut> yuts = new();
 
     private void Awake()
     {
         
         int cnt = transform.childCount;
 
+
         for(int i = 0; i < cnt; i++)
         {
 
-            yutImages.Add(transform.GetChild(i).GetComponent<Image>());
+            var obj = transform.GetChild(i);
+
+            yutImages.Add(obj.GetComponent<Image>());
+            yuts.Add(obj.GetComponent<Yut>());
 
         }
-
+        
     }
 
     public void SetUI(YutState state, int res)
     {
 
         var list = yutImages.ToList();
+
+        Sequence seq = DOTween.Sequence();
+
+        foreach(var item in yuts)
+        {
+
+            seq.Join(item.JumpAndRotate());
+
+        }
 
         for(int i = 0; i < res; i++)
         {
@@ -53,6 +68,15 @@ public class YutUI : MonoBehaviour
             item.sprite = back;
 
         }
+
+        seq.AppendCallback(() => HandleAnimeComp(state));
+
+    }
+
+    private void HandleAnimeComp(YutState state)
+    {
+
+        FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
 
     }
 

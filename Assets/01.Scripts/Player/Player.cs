@@ -59,7 +59,7 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("움직");
+                Debug.Log("골");
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();

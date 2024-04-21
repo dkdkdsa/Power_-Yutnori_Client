@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void PlayerMove();
+public delegate void PlayerMove(int stepCount);
 
 public static class SignalHub
 {
