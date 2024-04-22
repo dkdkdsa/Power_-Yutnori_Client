@@ -40,7 +40,7 @@ public class Player : NetBehavior
         //_spriteRenderer.color = new Color(255, 255, 255, 0.0f);
     }
 
-    public IEnumerator Move(int stepCount)
+    public IEnumerator Move(int stepCount, Action<bool> moveEndCallBack)
     {
         if(!isPiecedOnBoard)
         {
@@ -63,6 +63,7 @@ public class Player : NetBehavior
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();
+                moveEndCallBack?.Invoke(true);
                 yield break;
             }
 
@@ -70,6 +71,9 @@ public class Player : NetBehavior
             yield return new WaitForSeconds(movedelay);
         }
 
-        TurnManager.Instance.ChangeTurn();
+        //TurnManager.Instance.ChangeTurn();
+
+        moveEndCallBack?.Invoke(false);
+
     }
 }

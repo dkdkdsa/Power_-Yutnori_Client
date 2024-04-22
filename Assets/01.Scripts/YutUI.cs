@@ -38,11 +38,13 @@ public class YutUI : NetBehavior
     [SerializeField] private Sprite back, front, backCh;
     private List<Image> yutImages = new();
     private List<Yut> yuts = new();
+    private YutSystem system;
 
     private void Awake()
     {
         
         int cnt = transform.childCount;
+        system = FindObjectOfType<YutSystem>();
 
 
         for(int i = 0; i < cnt; i++)
@@ -81,14 +83,6 @@ public class YutUI : NetBehavior
 
         }
 
-        if(param.state == YutState.BackDo)
-        {
-
-            list[0].sprite = backCh;
-            list.Clear();
-
-        }
-
         foreach(var item in list)
         {
 
@@ -106,7 +100,8 @@ public class YutUI : NetBehavior
         if (TurnManager.Instance.MyTurn)
         {
 
-            FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
+            //FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
+            system.OnAnimeEnd();
 
         }
 
@@ -118,7 +113,7 @@ public class YutUI : NetBehavior
     {
 
         var setUp = new SetUpUI { state = yutState, res = res };
-        SetUI(setUp);
+        LinkMethod(SetUI,setUp);
 
     }
 

@@ -57,9 +57,9 @@ public class PlayersController : MonoBehaviour
         }
     }
 
-    public void PlayerMoveEventHandler(int stepCount)
+    public void PlayerMoveEventHandler(int stepCount, Action<bool> moveEndCallback = null)
     {
-        SignalHub.OnPlayerMoveEvent?.Invoke(stepCount);
+        SignalHub.OnPlayerMoveEvent?.Invoke(stepCount, moveEndCallback);
     }
 
     public void SpawnPlayer(PlayerType type)
@@ -82,7 +82,7 @@ public class PlayersController : MonoBehaviour
 
     }
 
-    private void MovePlayer(int stepCount)
+    private void MovePlayer(int stepCount, Action<bool> moveEndCallBack)
     {
         Player movePlayer = _players[_curTurnType]
                             .Where(p => p.IsPiecedOnBoard)
@@ -93,7 +93,7 @@ public class PlayersController : MonoBehaviour
             movePlayer = _players[_curTurnType][0];
         }
 
-        StartCoroutine(movePlayer.Move(stepCount));
+        StartCoroutine(movePlayer.Move(stepCount, moveEndCallBack));
     }
 
 
