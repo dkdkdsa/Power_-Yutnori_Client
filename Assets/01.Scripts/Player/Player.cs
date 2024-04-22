@@ -49,14 +49,14 @@ public class Player : NetBehavior
     {
         base.Start();
 
-        _spriteRenderer.color = new Color(255, 255, 255, 0.0f);
+        //_spriteRenderer.color = new Color(255, 255, 255, 0.0f);
     }
 
     public IEnumerator Move(int stepCount)
     {
         if(!isPiecedOnBoard)
         {
-            _spriteRenderer.color = Color.white;
+            //_spriteRenderer.color = Color.white;
             isPiecedOnBoard = true;
             Vector2 nextDir = new Vector2(transform.position.x,
                                         transform.position.y + 1.5f);
@@ -69,11 +69,13 @@ public class Player : NetBehavior
         {
             Vector2 nextDir = BoardManager.Instance.GetDirFromPlayerPos(transform.position, i);
 
-            if(nextDir == Vector2.zero) // ∞Ò¿Œ«—∞‹
+            if(nextDir == Vector2.zero)
             {
-                Debug.Log("∞Ò");
+                Debug.Log("Í≥®");
                 isArrived = true;
                 isPiecedOnBoard = false;
+                NetObject.Despawn();
+                yield break;
             }
 
             transform.DOMove(nextDir, moveSpeed);
