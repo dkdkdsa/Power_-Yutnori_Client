@@ -101,6 +101,8 @@ public class Player : NetBehavior
         {
             SelectPlayer();
         }
+        Debug.Log($"IsOwner: {NetObject.IsOwner}");
+        Debug.Log($"canSelect: {canSelect}");
     }
 
     private void OnEnable()

@@ -128,7 +128,7 @@ MonoBehaviour:
   tempStepCount: 3
   moveSpeed: 0.2
   movedelay: 0.3
-  _playerType: 0
+  _playerType: 1
   _playerLayer:
     serializedVersion: 2
     m_Bits: 0

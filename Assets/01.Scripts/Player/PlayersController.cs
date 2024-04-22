@@ -71,6 +71,7 @@ public class PlayersController : MonoBehaviour
         yield return new WaitUntil(() => IsSelectPlayer);
 
         StartCoroutine(_selectPlayer.Move(stepCount, moveEndCallBack));
+        _selectPlayer = null;
     }
 
     public void SetPlayer(Player player)

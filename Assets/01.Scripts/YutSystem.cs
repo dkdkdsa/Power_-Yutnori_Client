@@ -112,7 +112,7 @@ public class YutSystem : MonoBehaviour
 
         bool state = false;
         throwAble = false;
-
+        Debug.Log("?!");
         foreach (var item in states)
         {
 
@@ -124,6 +124,8 @@ public class YutSystem : MonoBehaviour
             {
                 players[i].SetSelectable();
             }
+
+            Debug.Log(players.Length);
 
             if (players.Length == 0)
             {
