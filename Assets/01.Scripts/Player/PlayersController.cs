@@ -26,23 +26,8 @@ public class PlayersController : MonoBehaviour
     private List<Player> _redPlayers = new();
     private List<Player> _bluePlayers = new();
 
-    private Dictionary<TurnType, List<Player>> _players = new();
-
-    private TurnType _curTurnType => TurnManager.Instance.CurTurnType;
-
-    private void Start()
-    {
-
-        //for(int i = 0; i < 3; i++)
-        //{
-        //    _redPlayers[i] = Instantiate(_redPlayerPrefab, _startTrm.position, Quaternion.identity);
-        //    _bluePlayers[i] = Instantiate(_bluePlayerPrefab, _startTrm.position, Quaternion.identity);
-        
-        //}
-
-        _players.Add(TurnType.RedPlayerTurn, _redPlayers);
-        _players.Add(TurnType.BluePlayerTurn, _bluePlayers);
-    }
+    private Player _selectPlayer;
+    private bool IsSelectPlayer => _selectPlayer != null;
 
     private void OnEnable()
     {
@@ -68,14 +53,16 @@ public class PlayersController : MonoBehaviour
         switch (type)
         {
             case PlayerType.Red:
-                _redPlayers.Add(
-                    NetworkManager.Instance.SpawnNetObject(_redPlayerPrefab.name, _startTrm.position, Quaternion.identity)
-                    .GetComponent<Player>());
+                Player redplayer = NetworkManager.Instance.SpawnNetObject(_redPlayerPrefab.name, _startTrm.position, Quaternion.identity, NetworkManager.Instance.ClientId)
+                    .GetComponent<Player>();
+                _redPlayers.Add(redplayer);
+                redplayer.SetCanSelect();
                 break;
             case PlayerType.Blue:
-                _bluePlayers.Add(
-                    NetworkManager.Instance.SpawnNetObject(_bluePlayerPrefab.name, _startTrm.position, Quaternion.identity)
-                    .GetComponent<Player>());
+                Player blueplayer = NetworkManager.Instance.SpawnNetObject(_bluePlayerPrefab.name, _startTrm.position, Quaternion.identity, NetworkManager.Instance.ClientId)
+                    .GetComponent<Player>();
+                _bluePlayers.Add(blueplayer);
+                blueplayer.SetCanSelect();
                 break;
 
         }
@@ -84,19 +71,33 @@ public class PlayersController : MonoBehaviour
 
     private void MovePlayer(int stepCount)
     {
-        Player movePlayer = _players[_curTurnType]
-                            .Where(p => p.IsPiecedOnBoard)
-                            .FirstOrDefault(); // 일단은 걍 나와있는 놈들 중 첫번째 걸로 할게
+        //Player movePlayer = _players[_curTurnType]
+        //                    .Where(p => p.IsPiecedOnBoard)
+        //                    .FirstOrDefault(); // 일단은 걍 나와있는 놈들 중 첫번째 걸로 할게
 
-        if (movePlayer == default)
-        {
-            movePlayer = _players[_curTurnType][0];
-        }
-
-        StartCoroutine(movePlayer.Move(stepCount));
+        StartCoroutine(WaitUntilSelectPlayerCorou(stepCount));
     }
 
+    private IEnumerator WaitUntilSelectPlayerCorou(int stepCount)
+    {
+        while (!IsSelectPlayer)
+        {
+            Debug.Log("Waiting Select Player..");
+            yield return 0.1f;
+        }
+        Debug.Log("?!");
+        //if (movePlayer == default)
+        //{
+        //    movePlayer = _players[_curTurnType][0];
+        //}
 
+        StartCoroutine(_selectPlayer.Move(stepCount));
+    }
+
+    public void SetPlayer(Player player)
+    {
+        _selectPlayer = player;
+    }
 
     private void OnDisable()
     {

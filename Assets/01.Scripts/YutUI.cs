@@ -39,6 +39,8 @@ public class YutUI : NetBehavior
     private List<Image> yutImages = new();
     private List<Yut> yuts = new();
 
+    private PlayersController _playersController;
+
     private void Awake()
     {
         
@@ -54,7 +56,8 @@ public class YutUI : NetBehavior
             yuts.Add(obj.GetComponent<Yut>());
 
         }
-        
+
+        _playersController = FindObjectOfType<PlayersController>();
     }
 
     public void SetUI(SetUpUI param)
@@ -105,8 +108,22 @@ public class YutUI : NetBehavior
 
         if (TurnManager.Instance.MyTurn)
         {
+            Player[] players = FindObjectsOfType<Player>()
+                .Where(p => p.NetObject.IsOwner)
+                .ToArray();
 
-            FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].SetCanSelect();
+            }
+
+            if (players.Length == 0)
+            {
+                Debug.Log("Any Players not Spawned");
+                _playersController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            }
+
+            _playersController.PlayerMoveEventHandler((int)state);
 
         }
 

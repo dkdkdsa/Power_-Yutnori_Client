@@ -28,6 +28,10 @@ public class Player : NetBehavior
     [SerializeField]
     private LayerMask _playerLayer;
 
+    private PlayersController _playersController;
+
+    private bool canSelect;
+
     private void Update()
     {
         //if (!NetObject.IsOwner) return;
@@ -36,6 +40,11 @@ public class Player : NetBehavior
     protected override void Start()
     {
         base.Start();
+    }
+
+    private void Awake()
+    {
+        _playersController = FindObjectOfType<PlayersController>();
     }
 
     public IEnumerator Move(int stepCount)
@@ -83,5 +92,19 @@ public class Player : NetBehavior
             }
         }
         TurnManager.Instance.ChangeTurn();
+    }
+
+    public void SetCanSelect()
+    {
+        Debug.Log("CanSelect");
+        canSelect = true;
+    }
+
+    private void OnMouseDown()
+    {
+        if (NetObject.IsOwner && canSelect)
+        {
+            _playersController.SetPlayer(this);
+        }
     }
 }

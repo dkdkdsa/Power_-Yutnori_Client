@@ -26,7 +26,7 @@ public class YutSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.MyTurn)
         {
 
-            FindObjectOfType<PlayersController>().SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            //FindObjectOfType<PlayersController>().SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
             ThrowYut();
 
         }

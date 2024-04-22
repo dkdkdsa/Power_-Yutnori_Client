@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    [SerializeField]
+    private LayerMask _boardLayerMask;
+
     public static BoardManager Instance { get; private set; }
 
     private Dictionary<Vector3, BaseSpace> _cachedSpaces // Ä³½Ì¿ë µñ¼Å³Ê¸®
@@ -32,7 +35,7 @@ public class BoardManager : MonoBehaviour
             return _cachedSpaces[playerPos] as T;
         }
 
-        Collider2D collider = Physics2D.Raycast(playerPos, Vector3.forward, 10f).collider;
+        Collider2D collider = Physics2D.Raycast(playerPos, Vector3.forward, 10f, _boardLayerMask).collider;
 
         if (collider.TryGetComponent(out T component) &&
             collider != null)
