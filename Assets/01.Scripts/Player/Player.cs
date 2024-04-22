@@ -2,9 +2,15 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityNet;
+public enum PlayerType
+{
+    Red,
+    Blue
+}
 
 public class Player : NetBehavior
 {
@@ -22,6 +28,12 @@ public class Player : NetBehavior
     private float movedelay = 0.3f;
 
     private SpriteRenderer _spriteRenderer;
+
+    [SerializeField]
+    private PlayerType _playerType;
+
+    [SerializeField]
+    private LayerMask _playerLayer;
 
     private void Update()
     {
@@ -68,6 +80,21 @@ public class Player : NetBehavior
             yield return new WaitForSeconds(movedelay);
         }
 
+        Collider2D collider = Physics2D.Raycast(transform.position, transform.forward, 10f, _playerLayer).collider;
+        // 적을 잡았을때
+        if (collider != null)
+        {
+            if (collider.CompareTag($"{_playerType}"))
+            {
+                // 업었다.
+
+            }
+            else
+            {
+                // 잡았다.
+
+            }
+        }
         TurnManager.Instance.ChangeTurn();
     }
 }
