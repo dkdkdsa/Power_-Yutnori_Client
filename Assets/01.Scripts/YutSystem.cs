@@ -11,7 +11,7 @@ public enum YutState
     Gay = 2,
     Girl = 3,
     Yut = 4,
-    Mo = 6,
+    Mo = 5,
 
 }
 
