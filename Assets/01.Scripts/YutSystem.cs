@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityNet;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum YutState
 {
@@ -123,7 +122,7 @@ public class YutSystem : MonoBehaviour
 
             for (int i = 0; i < players.Length; i++)
             {
-                players[i].SetCanSelect();
+                players[i].SetSelectable();
             }
 
             if (players.Length == 0)

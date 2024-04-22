@@ -34,14 +34,6 @@ public class PlayersController : MonoBehaviour
         SignalHub.OnPlayerMoveEvent += MovePlayer;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlayerMoveEventHandler(1);
-        }
-    }
-
     public void PlayerMoveEventHandler(int stepCount, Action<bool> moveEndCallback = null)
     {
         SignalHub.OnPlayerMoveEvent?.Invoke(stepCount, moveEndCallback);
@@ -56,13 +48,13 @@ public class PlayersController : MonoBehaviour
                 Player redplayer = NetworkManager.Instance.SpawnNetObject(_redPlayerPrefab.name, _startTrm.position, Quaternion.identity, NetworkManager.Instance.ClientId)
                     .GetComponent<Player>();
                 _redPlayers.Add(redplayer);
-                redplayer.SetCanSelect();
+                redplayer.SelectPlayer();
                 break;
             case PlayerType.Blue:
                 Player blueplayer = NetworkManager.Instance.SpawnNetObject(_bluePlayerPrefab.name, _startTrm.position, Quaternion.identity, NetworkManager.Instance.ClientId)
                     .GetComponent<Player>();
                 _bluePlayers.Add(blueplayer);
-                blueplayer.SetCanSelect();
+                blueplayer.SelectPlayer();
                 break;
 
         }
@@ -71,18 +63,14 @@ public class PlayersController : MonoBehaviour
 
     private void MovePlayer(int stepCount, Action<bool> moveEndCallBack)
     {
-        //Player movePlayer = _players[_curTurnType]
-        //                    .Where(p => p.IsPiecedOnBoard)
-        //                    .FirstOrDefault(); // 일단은 걍 나와있는 놈들 중 첫번째 걸로 할게
-
-        StartCoroutine(WaitUntilSelectPlayerCorou(stepCount));
+        StartCoroutine(WaitUntilSelectPlayerCorou(stepCount, moveEndCallBack));
     }
 
-    private IEnumerator WaitUntilSelectPlayerCorou(int stepCount)
+    private IEnumerator WaitUntilSelectPlayerCorou(int stepCount, Action<bool> moveEndCallBack)
     {
         yield return new WaitUntil(() => IsSelectPlayer);
 
-        //StartCoroutine(_selectPlayer.Move(stepCount));
+        StartCoroutine(_selectPlayer.Move(stepCount, moveEndCallBack));
     }
 
     public void SetPlayer(Player player)

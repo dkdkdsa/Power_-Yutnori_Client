@@ -1,10 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityNet;
 
 public class Player : NetBehavior
@@ -40,6 +37,8 @@ public class Player : NetBehavior
     protected override void Start()
     {
         base.Start();
+
+        NetworkManager.Instance.OnTurnChangeEvent += SetSelectDisable;
     }
 
     private void Awake()
@@ -81,17 +80,31 @@ public class Player : NetBehavior
         moveEndCallBack?.Invoke(false);
     }
 
-    public void SetCanSelect()
+    public void SetSelectable()
     {
-        Debug.Log("CanSelect");
         canSelect = true;
+    }
+
+    public void SetSelectDisable(int obj)
+    {
+        canSelect = false;
+    }
+
+    public void SelectPlayer()
+    {
+        _playersController.SetPlayer(this);
     }
 
     private void OnMouseDown()
     {
         if (NetObject.IsOwner && canSelect)
         {
-            _playersController.SetPlayer(this);
+            SelectPlayer();
         }
+    }
+
+    private void OnEnable()
+    {
+        NetworkManager.Instance.OnTurnChangeEvent -= SetSelectDisable;
     }
 }
