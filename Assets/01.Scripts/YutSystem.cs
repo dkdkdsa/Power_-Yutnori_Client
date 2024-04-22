@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityNet;
 
 public enum YutState
 {
@@ -17,12 +18,15 @@ public enum YutState
 public class YutSystem : MonoBehaviour
 {
 
+    [SerializeField] private GameObject uiPrefab;
+
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.MyTurn)
         {
 
+            FindObjectOfType<PlayersController>().SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
             ThrowYut();
 
         }
@@ -44,7 +48,9 @@ public class YutSystem : MonoBehaviour
         Debug.Log(GetYutState(res).ToString());
 
         //나중에 바꾸기
-        FindObjectOfType<YutUI>().SetUI(GetYutState(res), res);
+
+
+        FindObjectOfType<YutUI>().SetUILink(GetYutState(res), res);
 
     }
 

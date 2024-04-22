@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityNet;
+
+public enum PlayerType
+{
+
+    Red,
+    Blue,
+
+}
 
 public class PlayersController : MonoBehaviour
 {
@@ -14,21 +23,22 @@ public class PlayersController : MonoBehaviour
     [SerializeField]
     private Transform _startTrm;
 
-    private Player[] _redPlayers = new Player[3];
-    private Player[] _bluePlayers = new Player[3];
+    private List<Player> _redPlayers = new();
+    private List<Player> _bluePlayers = new();
 
-    private Dictionary<TurnType, Player[]> _players = new();
+    private Dictionary<TurnType, List<Player>> _players = new();
 
     private TurnType _curTurnType => TurnManager.Instance.CurTurnType;
 
     private void Start()
     {
-        for(int i = 0; i < 3; i++)
-        {
-            _redPlayers[i] = Instantiate(_redPlayerPrefab, _startTrm.position, Quaternion.identity);
-            _bluePlayers[i] = Instantiate(_bluePlayerPrefab, _startTrm.position, Quaternion.identity);
+
+        //for(int i = 0; i < 3; i++)
+        //{
+        //    _redPlayers[i] = Instantiate(_redPlayerPrefab, _startTrm.position, Quaternion.identity);
+        //    _bluePlayers[i] = Instantiate(_bluePlayerPrefab, _startTrm.position, Quaternion.identity);
         
-        }
+        //}
 
         _players.Add(TurnType.RedPlayerTurn, _redPlayers);
         _players.Add(TurnType.BluePlayerTurn, _bluePlayers);
@@ -50,6 +60,26 @@ public class PlayersController : MonoBehaviour
     public void PlayerMoveEventHandler(int stepCount)
     {
         SignalHub.OnPlayerMoveEvent?.Invoke(stepCount);
+    }
+
+    public void SpawnPlayer(PlayerType type)
+    {
+
+        switch (type)
+        {
+            case PlayerType.Red:
+                _redPlayers.Add(
+                    NetworkManager.Instance.SpawnNetObject(_redPlayerPrefab.name, _startTrm.position, Quaternion.identity)
+                    .GetComponent<Player>());
+                break;
+            case PlayerType.Blue:
+                _bluePlayers.Add(
+                    NetworkManager.Instance.SpawnNetObject(_bluePlayerPrefab.name, _startTrm.position, Quaternion.identity)
+                    .GetComponent<Player>());
+                break;
+
+        }
+
     }
 
     private void MovePlayer(int stepCount)
