@@ -6,11 +6,6 @@ using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityNet;
-public enum PlayerType
-{
-    Red,
-    Blue
-}
 
 public class Player : NetBehavior
 {
@@ -27,8 +22,6 @@ public class Player : NetBehavior
     [SerializeField]
     private float movedelay = 0.3f;
 
-    private SpriteRenderer _spriteRenderer;
-
     [SerializeField]
     private PlayerType _playerType;
 
@@ -40,23 +33,15 @@ public class Player : NetBehavior
         //if (!NetObject.IsOwner) return;
     }
 
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
     protected override void Start()
     {
         base.Start();
-
-        //_spriteRenderer.color = new Color(255, 255, 255, 0.0f);
     }
 
     public IEnumerator Move(int stepCount)
     {
         if(!isPiecedOnBoard)
         {
-            //_spriteRenderer.color = Color.white;
             isPiecedOnBoard = true;
             Vector2 nextDir = new Vector2(transform.position.x,
                                         transform.position.y + 1.5f);
@@ -71,7 +56,7 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("ê³¨");
+                Debug.Log("°ñ");
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();
