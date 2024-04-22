@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityNet;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum YutState
 {
@@ -99,12 +100,21 @@ public class YutSystem : MonoBehaviour
     {
 
         bool state = false;
-
-
         foreach(var item in states)
         {
+            Player[] players = FindObjectsOfType<Player>()
+                .Where(p => p.NetObject.IsOwner)
+                .ToArray();
 
-            playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            for(int i = 0; i < players.Length; i++)
+            {
+                players[i].SetCanSelect();
+            }
+
+            if (players.Length == 0)
+            {
+                playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            }
 
             playerController.PlayerMoveEventHandler((int)item, (x) => state = true);
 

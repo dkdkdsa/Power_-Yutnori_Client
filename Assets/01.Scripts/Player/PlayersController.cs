@@ -80,18 +80,9 @@ public class PlayersController : MonoBehaviour
 
     private IEnumerator WaitUntilSelectPlayerCorou(int stepCount)
     {
-        while (!IsSelectPlayer)
-        {
-            Debug.Log("Waiting Select Player..");
-            yield return 0.1f;
-        }
-        Debug.Log("?!");
-        //if (movePlayer == default)
-        //{
-        //    movePlayer = _players[_curTurnType][0];
-        //}
+        yield return new WaitUntil(() => IsSelectPlayer);
 
-        StartCoroutine(_selectPlayer.Move(stepCount));
+        //StartCoroutine(_selectPlayer.Move(stepCount));
     }
 
     public void SetPlayer(Player player)

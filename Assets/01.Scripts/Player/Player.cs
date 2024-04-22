@@ -65,7 +65,7 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("ê³?);
+                Debug.Log("rhf");
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();

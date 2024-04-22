@@ -102,10 +102,6 @@ public class YutUI : NetBehavior
 
         if (TurnManager.Instance.MyTurn)
         {
-            Player[] players = FindObjectsOfType<Player>()
-                .Where(p => p.NetObject.IsOwner)
-                .ToArray();
-
             //FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
             system.OnAnimeEnd();
 
