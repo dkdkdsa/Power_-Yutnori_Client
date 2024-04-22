@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityNet;
 
@@ -11,7 +12,6 @@ public enum YutState
     Girl = 3,
     Yut = 4,
     Mo = 6,
-    BackDo = -1,
 
 }
 
@@ -19,6 +19,32 @@ public class YutSystem : MonoBehaviour
 {
 
     [SerializeField] private GameObject uiPrefab;
+
+    private List<YutState> states = new();
+    private YutUI yutUI;
+    private PlayersController playerController;
+
+    private void Start()
+    {
+
+        NetworkManager.Instance.OnNetworkConnected += HandleConnected;
+        playerController = FindObjectOfType<PlayersController>();
+
+    }
+
+    private void HandleConnected()
+    {
+
+        if(NetworkManager.Instance.ClientId == 1)
+        {
+
+            NetworkManager.Instance.SpawnNetObject(uiPrefab.name, Vector3.zero, Quaternion.identity);
+
+        }
+
+        yutUI = FindObjectOfType<YutUI>();
+
+    }
 
     private void Update()
     {
@@ -45,12 +71,52 @@ public class YutSystem : MonoBehaviour
 
         }
 
-        Debug.Log(GetYutState(res).ToString());
+        states.Add(GetYutState(res));
 
-        //나중에 바꾸기
+        yutUI.SetUILink(GetYutState(res), res);
+
+    }
+
+    public void OnAnimeEnd()
+    {
+
+        if(states.Last() == YutState.Mo || states.Last() == YutState.Yut)
+        {
+
+            Debug.Log("한번 더");
+
+        }
+        else
+        {
+
+            StartCoroutine(MoveCo());
+
+        }
+
+    }
+
+    private IEnumerator MoveCo()
+    {
+
+        bool state = false;
 
 
-        FindObjectOfType<YutUI>().SetUILink(GetYutState(res), res);
+        foreach(var item in states)
+        {
+
+            playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+
+            playerController.PlayerMoveEventHandler((int)item, (x) => state = true);
+
+            yield return new WaitUntil(() => state);
+
+            state = false;
+
+        }
+
+        states.Clear();
+
+        //TurnManager.Instance.ChangeTurn();
 
     }
 
@@ -80,7 +146,7 @@ public class YutSystem : MonoBehaviour
 
         }
 
-        return YutState.BackDo;
+        return YutState.Do;
 
     }
 

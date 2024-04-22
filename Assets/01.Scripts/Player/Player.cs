@@ -47,7 +47,7 @@ public class Player : NetBehavior
         _playersController = FindObjectOfType<PlayersController>();
     }
 
-    public IEnumerator Move(int stepCount)
+    public IEnumerator Move(int stepCount, Action<bool> moveEndCallBack)
     {
         if(!isPiecedOnBoard)
         {
@@ -65,10 +65,11 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("골");
+                Debug.Log("怨?);
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();
+                moveEndCallBack?.Invoke(true);
                 yield break;
             }
 
@@ -76,22 +77,8 @@ public class Player : NetBehavior
             yield return new WaitForSeconds(movedelay);
         }
 
-        Collider2D collider = Physics2D.Raycast(transform.position, transform.forward, 10f, _playerLayer).collider;
-        // 적을 잡았을때
-        if (collider != null)
-        {
-            if (collider.CompareTag($"{_playerType}"))
-            {
-                // 업었다.
-
-            }
-            else
-            {
-                // 잡았다.
-
-            }
-        }
-        TurnManager.Instance.ChangeTurn();
+        //TurnManager.Instance.ChangeTurn();
+        moveEndCallBack?.Invoke(false);
     }
 
     public void SetCanSelect()
