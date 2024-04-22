@@ -20,10 +20,12 @@ public class YutSystem : MonoBehaviour
 {
 
     [SerializeField] private GameObject uiPrefab;
+    [SerializeField] private GameObject oneMorePrefab;
 
     private List<YutState> states = new();
     private YutUI yutUI;
     private PlayersController playerController;
+    private bool throwAble = true;
 
     private void Start()
     {
@@ -43,14 +45,19 @@ public class YutSystem : MonoBehaviour
 
         }
 
-        yutUI = FindObjectOfType<YutUI>();
+    }
+
+    public void SetUI(YutUI ui)
+    {
+
+        yutUI = ui;
 
     }
 
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.MyTurn)
+        if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.MyTurn && throwAble)
         {
 
             //FindObjectOfType<PlayersController>().SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
@@ -62,6 +69,8 @@ public class YutSystem : MonoBehaviour
 
     private void ThrowYut()
     {
+
+        throwAble = false;
 
         int res = 0;
 
@@ -84,7 +93,10 @@ public class YutSystem : MonoBehaviour
         if(states.Last() == YutState.Mo || states.Last() == YutState.Yut)
         {
 
-            Debug.Log("ÇÑ¹ø ´õ");
+            NetworkManager.Instance.SpawnNetObject(oneMorePrefab.name, 
+                Vector3.zero, Quaternion.identity, NetworkManager.Instance.ClientId);
+
+            throwAble = true;
 
         }
         else
@@ -100,13 +112,16 @@ public class YutSystem : MonoBehaviour
     {
 
         bool state = false;
-        foreach(var item in states)
+        throwAble = false;
+
+        foreach (var item in states)
         {
+
             Player[] players = FindObjectsOfType<Player>()
                 .Where(p => p.NetObject.IsOwner)
                 .ToArray();
 
-            for(int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Length; i++)
             {
                 players[i].SetCanSelect();
             }
@@ -120,13 +135,16 @@ public class YutSystem : MonoBehaviour
 
             yield return new WaitUntil(() => state);
 
+            yield return new WaitForSeconds(0.5f);
+
             state = false;
 
         }
 
+        throwAble = true;
         states.Clear();
 
-        //TurnManager.Instance.ChangeTurn();
+        TurnManager.Instance.ChangeTurn();
 
     }
 

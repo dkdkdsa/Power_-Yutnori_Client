@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 8615700554610669634, guid: 90ca9978cbf64d841811eae1e6948e05, type: 3}
+  oneMorePrefab: {fileID: 2509212601631314079, guid: bb16c5281acd26a4eb93a6f9cca44e44, type: 3}
 --- !u!114 &1362476191
 MonoBehaviour:
   m_ObjectHideFlags: 0

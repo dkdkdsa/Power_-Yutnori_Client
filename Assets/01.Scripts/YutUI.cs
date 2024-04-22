@@ -47,6 +47,7 @@ public class YutUI : NetBehavior
         
         int cnt = transform.childCount;
         system = FindObjectOfType<YutSystem>();
+        system.SetUI(this);
 
 
         for(int i = 0; i < cnt; i++)
