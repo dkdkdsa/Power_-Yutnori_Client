@@ -11,7 +11,7 @@ public enum YutState
     Gay = 2,
     Girl = 3,
     Yut = 4,
-    Mo = 6,
+    Mo = 5,
 
 }
 
@@ -112,11 +112,25 @@ public class YutSystem : MonoBehaviour
 
         bool state = false;
         throwAble = false;
-
+        Debug.Log("?!");
         foreach (var item in states)
         {
 
-            playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            Player[] players = FindObjectsOfType<Player>()
+                .Where(p => p.NetObject.IsOwner)
+                .ToArray();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].SetSelectable();
+            }
+
+            Debug.Log(players.Length);
+
+            if (players.Length == 0)
+            {
+                playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            }
 
             playerController.PlayerMoveEventHandler((int)item, (x) => state = true);
 

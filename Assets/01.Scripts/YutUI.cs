@@ -40,6 +40,8 @@ public class YutUI : NetBehavior
     private List<Yut> yuts = new();
     private YutSystem system;
 
+    private PlayersController _playersController;
+
     private void Awake()
     {
         
@@ -57,7 +59,8 @@ public class YutUI : NetBehavior
             yuts.Add(obj.GetComponent<Yut>());
 
         }
-        
+
+        _playersController = FindObjectOfType<PlayersController>();
     }
 
     public void SetUI(SetUpUI param)
@@ -100,7 +103,6 @@ public class YutUI : NetBehavior
 
         if (TurnManager.Instance.MyTurn)
         {
-
             //FindObjectOfType<PlayersController>().PlayerMoveEventHandler((int)state);
             system.OnAnimeEnd();
 

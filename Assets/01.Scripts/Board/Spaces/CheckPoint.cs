@@ -8,6 +8,9 @@ public class CheckPoint : BaseSpace
     private MoveDirTypeEnum _checkPointMoveDirType;
     public MoveDirTypeEnum CheckPointMoveDirType => _checkPointMoveDirType;
 
+    [SerializeField]
+    private float shortcutMoveDistance;
+
     public override Vector2 GetShotCutDir()
     {
         Vector2 nextSpace = Vector2.zero;
@@ -15,28 +18,28 @@ public class CheckPoint : BaseSpace
         switch (_checkPointMoveDirType)
         {
             case MoveDirTypeEnum.Left:
-                nextSpace = new Vector2(transform.position.x - MoveDistance,
+                nextSpace = new Vector2(transform.position.x - shortcutMoveDistance,
                                         transform.position.y);
                 break;
             case MoveDirTypeEnum.Right:
-                nextSpace = new Vector2(transform.position.x + MoveDistance,
+                nextSpace = new Vector2(transform.position.x + shortcutMoveDistance,
                                         transform.position.y);
                 break;
             case MoveDirTypeEnum.Up:
                 nextSpace = new Vector2(transform.position.x,
-                                        transform.position.y + MoveDistance);
+                                        transform.position.y + shortcutMoveDistance);
                 break;
             case MoveDirTypeEnum.Down:
                 nextSpace = new Vector2(transform.position.x,
-                                        transform.position.y - MoveDistance);
+                                        transform.position.y - shortcutMoveDistance);
                 break;
             case MoveDirTypeEnum.RightDown:
-                nextSpace = new Vector2(transform.position.x + MoveDistance,
-                                        transform.position.y - MoveDistance);
+                nextSpace = new Vector2(transform.position.x + shortcutMoveDistance,
+                                        transform.position.y - shortcutMoveDistance);
                 break;
             case MoveDirTypeEnum.LeftDown:
-                nextSpace = new Vector2(transform.position.x - MoveDistance,
-                                        transform.position.y - MoveDistance);
+                nextSpace = new Vector2(transform.position.x - shortcutMoveDistance,
+                                        transform.position.y - shortcutMoveDistance);
                 break;
         }
 

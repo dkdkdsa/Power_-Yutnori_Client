@@ -1,9 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityNet;
 
 public class Player : NetBehavior
@@ -21,30 +19,37 @@ public class Player : NetBehavior
     [SerializeField]
     private float movedelay = 0.3f;
 
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    private PlayerType _playerType;
+
+    [SerializeField]
+    private LayerMask _playerLayer;
+
+    private PlayersController _playersController;
+
+    private bool canSelect;
 
     private void Update()
     {
         //if (!NetObject.IsOwner) return;
     }
 
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
     protected override void Start()
     {
         base.Start();
 
-        //_spriteRenderer.color = new Color(255, 255, 255, 0.0f);
+        NetworkManager.Instance.OnTurnChangeEvent += SetSelectDisable;
+    }
+
+    private void Awake()
+    {
+        _playersController = FindObjectOfType<PlayersController>();
     }
 
     public IEnumerator Move(int stepCount, Action<bool> moveEndCallBack)
     {
         if(!isPiecedOnBoard)
         {
-            //_spriteRenderer.color = Color.white;
             isPiecedOnBoard = true;
             Vector2 nextDir = new Vector2(transform.position.x,
                                         transform.position.y + 1.5f);
@@ -59,7 +64,7 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("골");
+                Debug.Log("rhf");
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();
@@ -72,8 +77,36 @@ public class Player : NetBehavior
         }
 
         //TurnManager.Instance.ChangeTurn();
-
         moveEndCallBack?.Invoke(false);
+    }
 
+    public void SetSelectable()
+    {
+        canSelect = true;
+    }
+
+    public void SetSelectDisable(int obj)
+    {
+        canSelect = false;
+    }
+
+    public void SelectPlayer()
+    {
+        _playersController.SetPlayer(this);
+    }
+
+    private void OnMouseDown()
+    {
+        if (NetObject.IsOwner && canSelect)
+        {
+            SelectPlayer();
+        }
+        Debug.Log($"IsOwner: {NetObject.IsOwner}");
+        Debug.Log($"canSelect: {canSelect}");
+    }
+
+    private void OnEnable()
+    {
+        NetworkManager.Instance.OnTurnChangeEvent -= SetSelectDisable;
     }
 }
