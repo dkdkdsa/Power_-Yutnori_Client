@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityNet;
 
@@ -8,11 +9,13 @@ public class Player : NetBehavior
 {
     [SerializeField]
     private int tempStepCount;
+    [SerializeField] private TMP_Text stackText;
 
     private bool isPiecedOnBoard = false;
     public bool IsPiecedOnBoard => isPiecedOnBoard;
 
     private bool isArrived = false;
+    private int stackCount = 1;
 
     [SerializeField]
     private float moveSpeed = 0.2f;
@@ -97,12 +100,19 @@ public class Player : NetBehavior
             if (item.TryGetComponent<Player>(out var compo))
             {
 
-                if (item == this) continue;
+                if (compo == this) continue;
 
                 if (compo._playerType != _playerType)
                 {
 
                     compo.NetObject.Despawn();
+
+                }
+                else if (compo._playerType == _playerType)
+                {
+
+                    compo.NetObject.Despawn();
+                    LinkMethod(Stack);
 
                 }
 
@@ -116,6 +126,15 @@ public class Player : NetBehavior
     public void SetSelectable()
     {
         canSelect = true;
+    }
+
+    public void Stack()
+    {
+
+        stackCount++;
+
+        stackText.text = stackCount.ToString();
+
     }
 
     public void SetSelectDisable(int obj)
