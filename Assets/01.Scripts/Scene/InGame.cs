@@ -11,6 +11,7 @@ public class InGame : MonoBehaviour
         
         NetworkManager.Instance.Connect();
 
+
     }
 
 }

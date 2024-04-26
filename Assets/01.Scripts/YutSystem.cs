@@ -41,6 +41,7 @@ public class YutSystem : MonoBehaviour
         {
 
             NetworkManager.Instance.SpawnNetObject(uiPrefab.name, Vector3.zero, Quaternion.identity);
+            NetworkManager.Instance.SpawnNetObject("ScoreManager", Vector3.zero, Quaternion.identity);
 
         }
 

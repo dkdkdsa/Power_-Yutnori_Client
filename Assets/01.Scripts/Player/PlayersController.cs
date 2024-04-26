@@ -42,6 +42,8 @@ public class PlayersController : MonoBehaviour
     public void SpawnPlayer(PlayerType type)
     {
 
+        ScoreAndSpawnManager.Instance.SpawnPlayer(type);
+
         switch (type)
         {
             case PlayerType.Red:
@@ -71,7 +73,7 @@ public class PlayersController : MonoBehaviour
         yield return new WaitUntil(() =>
         {
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && ScoreAndSpawnManager.Instance.spawnCount > 0)
             {
 
                 SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);

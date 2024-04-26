@@ -100,11 +100,12 @@ public class Player : NetBehavior
             if (item.TryGetComponent<Player>(out var compo))
             {
 
-                if (compo == this) continue;
+                if (compo.NetObject.Hash == NetObject.Hash) continue;
 
                 if (compo._playerType != _playerType)
                 {
 
+                    ScoreAndSpawnManager.Instance.CatchPlayer(compo._playerType, compo.stackCount);
                     compo.NetObject.Despawn();
 
                 }

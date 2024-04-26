@@ -31,6 +31,8 @@ public class NetworkLinker
 
         var obj = p.saver.Casting(t);
 
+        Debug.Log(obj.GetType());
+
         NetworkManager.Instance.LinkMethodInvoke(p.methodName, p.componentName, p.objectHash, obj);
 
     }
