@@ -68,7 +68,19 @@ public class PlayersController : MonoBehaviour
 
     private IEnumerator WaitUntilSelectPlayerCorou(int stepCount, Action<bool> moveEndCallBack)
     {
-        yield return new WaitUntil(() => IsSelectPlayer);
+        yield return new WaitUntil(() =>
+        {
+
+            if (Input.GetMouseButtonDown(1))
+            {
+
+                SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+
+            }
+
+            return IsSelectPlayer;
+
+        });
 
         StartCoroutine(_selectPlayer.Move(stepCount, moveEndCallBack));
         _selectPlayer = null;
