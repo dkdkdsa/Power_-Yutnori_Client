@@ -9,6 +9,9 @@ public class TurnManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject yutUI;
+
+    [SerializeField] private GameObject redPlayerTurn, bluePlayerTurn;
+
     public static TurnManager Instance;
 
     private TurnType _curTurnType;
