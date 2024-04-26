@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8044139802327354181}
   - component: {fileID: 7739122391491748439}
   - component: {fileID: 4741759525980516853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2424028553365227855}
   - component: {fileID: 4243778201635650651}
   - component: {fileID: 584818531838862950}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 6961273964612110416}
   - component: {fileID: 7755513488857667585}
   - component: {fileID: 4751970141301833740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 806693720073030624}
   - component: {fileID: 3675359698695894597}
   - component: {fileID: 5379040256739360994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckPoint_MIddle
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -357,6 +357,7 @@ MonoBehaviour:
   _moveDirType: 5
   MoveDistance: 1.3
   _checkPointMoveDirType: 4
+  shortcutMoveDistance: 1.3
 --- !u!61 &5379040256739360994
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -413,7 +414,7 @@ GameObject:
   - component: {fileID: 6436480650671674942}
   - component: {fileID: 6307624023721488777}
   - component: {fileID: 1222650096741501390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -448,8 +449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDirType: 3
-  MoveDistance: 1.3
+  MoveDistance: 1.5
   _checkPointMoveDirType: 4
+  shortcutMoveDistance: 1.3
 --- !u!61 &1222650096741501390
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -506,7 +508,7 @@ GameObject:
   - component: {fileID: 4060625725652892478}
   - component: {fileID: 5739295672225002425}
   - component: {fileID: 1348651909219632423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_1
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -598,7 +600,7 @@ GameObject:
   - component: {fileID: 2202716516737248496}
   - component: {fileID: 43125061950938053}
   - component: {fileID: 9005915620263126537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -813,7 +815,7 @@ GameObject:
   - component: {fileID: 584328992373770451}
   - component: {fileID: 5848306735297504235}
   - component: {fileID: 2414521100532727510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -905,7 +907,7 @@ GameObject:
   - component: {fileID: 3046365978888123650}
   - component: {fileID: 1718665473253860651}
   - component: {fileID: 4733740988990051144}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -940,8 +942,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDirType: 1
-  MoveDistance: 1.3
+  MoveDistance: 1.5
   _checkPointMoveDirType: 1
+  shortcutMoveDistance: 1.3
 --- !u!61 &4733740988990051144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -998,7 +1001,7 @@ GameObject:
   - component: {fileID: 4894559842895566863}
   - component: {fileID: 5206363575184468116}
   - component: {fileID: 7705100882994239452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_7
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1090,7 +1093,7 @@ GameObject:
   - component: {fileID: 3541282191753693232}
   - component: {fileID: 1557534056970616362}
   - component: {fileID: 7473730927578212001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1182,7 +1185,7 @@ GameObject:
   - component: {fileID: 8373745323857392346}
   - component: {fileID: 117658560585189760}
   - component: {fileID: 4373933683924512172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1307,7 +1310,7 @@ GameObject:
   - component: {fileID: 8673534221409159547}
   - component: {fileID: 7015343324306142452}
   - component: {fileID: 3086611197724561143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1399,7 +1402,7 @@ GameObject:
   - component: {fileID: 553786185281670498}
   - component: {fileID: 597959081973708275}
   - component: {fileID: 1413411456747486647}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1558,6 +1561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840000d64f201b84c81c74ed332403b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &2718972673533714969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yutUI: {fileID: 0}
+  redPlayerTurn: {fileID: 0}
+  bluePlayerTurn: {fileID: 0}
 --- !u!1 &5155760626428544382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1590,7 @@ GameObject:
   - component: {fileID: 747702489483390104}
   - component: {fileID: 4899356965123190215}
   - component: {fileID: 2779746487698484501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1674,7 +1682,7 @@ GameObject:
   - component: {fileID: 2424347290059519388}
   - component: {fileID: 2415151089129586}
   - component: {fileID: 2849577610581343109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_8
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1766,7 +1774,7 @@ GameObject:
   - component: {fileID: 2855769889671581526}
   - component: {fileID: 3331295936799907069}
   - component: {fileID: 71625685787153240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_5
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1858,7 +1866,7 @@ GameObject:
   - component: {fileID: 6027016641141954421}
   - component: {fileID: 2795141719005634724}
   - component: {fileID: 8898219556517526127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_4
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1950,7 +1958,7 @@ GameObject:
   - component: {fileID: 1776769791077254498}
   - component: {fileID: 8554937272300459926}
   - component: {fileID: 6705947998176787449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2042,7 +2050,7 @@ GameObject:
   - component: {fileID: 5617722138545452267}
   - component: {fileID: 6754178557780278138}
   - component: {fileID: 775489116481803425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2134,7 +2142,7 @@ GameObject:
   - component: {fileID: 920162581238659857}
   - component: {fileID: 290338780627236254}
   - component: {fileID: 1132867493514837166}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2226,7 +2234,7 @@ GameObject:
   - component: {fileID: 5477798495140448895}
   - component: {fileID: 330724422394814461}
   - component: {fileID: 5145186102813848289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -2261,8 +2269,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDirType: 0
-  MoveDistance: 1.3
+  MoveDistance: 1.5
   _checkPointMoveDirType: 5
+  shortcutMoveDistance: 1.3
 --- !u!61 &5145186102813848289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2319,7 +2328,7 @@ GameObject:
   - component: {fileID: 6488858714852396422}
   - component: {fileID: 3119005777489053820}
   - component: {fileID: 714894082729208167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2411,7 +2420,7 @@ GameObject:
   - component: {fileID: 8745319067424941610}
   - component: {fileID: 1104568630648114677}
   - component: {fileID: 3346447828028205635}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_2
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -2503,7 +2512,7 @@ GameObject:
   - component: {fileID: 8347359367721929212}
   - component: {fileID: 1464538599540768874}
   - component: {fileID: 313846165138014130}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2628,7 +2637,7 @@ GameObject:
   - component: {fileID: 6942231568525079637}
   - component: {fileID: 8507983139115240541}
   - component: {fileID: 2874740035755502177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_6
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -2755,7 +2764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _redPlayerPrefab: {fileID: 6907241928144889029, guid: 7bf4f5a6c31d2ff4cac801447ccdf48d, type: 3}
   _bluePlayerPrefab: {fileID: 6907241928144889029, guid: 62cafb29931239e4bae6727fe159b8b4, type: 3}
-  _startTrm: {fileID: 8347359367721929212}
+  _startTrm: {fileID: 8044139802327354181}
 --- !u!1 &8458006717378426522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,7 +2809,7 @@ GameObject:
   - component: {fileID: 6278657056316307415}
   - component: {fileID: 1935408614976084873}
   - component: {fileID: 5416880215349533798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2943,7 +2952,7 @@ GameObject:
   - component: {fileID: 3513287261098167634}
   - component: {fileID: 6531698607165273494}
   - component: {fileID: 7359456060395755520}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -3035,7 +3044,7 @@ GameObject:
   - component: {fileID: 577338942531162324}
   - component: {fileID: 8161058249178228553}
   - component: {fileID: 2120182752999178994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MoveSpace_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

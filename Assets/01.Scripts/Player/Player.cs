@@ -76,8 +76,41 @@ public class Player : NetBehavior
             yield return new WaitForSeconds(movedelay);
         }
 
+
+        CheckPlayerCatch();
+
         //TurnManager.Instance.ChangeTurn();
         moveEndCallBack?.Invoke(false);
+    }
+
+    private void CheckPlayerCatch()
+    {
+
+        var obj = Physics.OverlapBox(transform.position, Vector3.one / 2, Quaternion.identity, _playerLayer);
+
+        if (obj.Length == 0) return;
+
+
+        foreach(var item in obj)
+        {
+
+            if (item.TryGetComponent<Player>(out var compo))
+            {
+
+                if (item == this) continue;
+
+                if (compo._playerType != _playerType)
+                {
+
+                    compo.NetObject.Despawn();
+
+                }
+
+            }
+
+        }
+
+
     }
 
     public void SetSelectable()
