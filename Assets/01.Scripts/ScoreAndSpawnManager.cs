@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityNet;
 
+
+
 public struct ScoreLinkParam : INetSerializeable
 {
 
