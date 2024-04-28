@@ -73,7 +73,7 @@ public class PlayersController : MonoBehaviour
         yield return new WaitUntil(() =>
         {
 
-            if (Input.GetMouseButtonDown(1) && ScoreAndSpawnManager.Instance.spawnCount > 0)
+            if (Input.GetMouseButtonDown(1) && ScoreAndSpawnManager.Instance.SpawnCount > 0)
             {
 
                 SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);

@@ -7,9 +7,36 @@ using UnityNet;
 
 
 
-public struct ScoreLinkParam : INetSerializeable
+public struct CatchLinkParam : INetSerializeable
 {
 
+    public PlayerType playerType;
+    public int score;
+
+    public void Deserialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        int res = 0;
+        Serializer.Deserialize(ref res, ref buffer, ref count);
+
+        playerType = (PlayerType)res;
+
+        Serializer.Deserialize(ref score, ref buffer, ref count);
+
+    }
+
+    public void Serialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        ((int)playerType).Serialize(ref buffer, ref count);
+        score.Serialize(ref buffer, ref count);
+
+    }
+
+}
+
+public struct ScoreLinkParam : INetSerializeable
+{
     public PlayerType playerType;
     public int score;
 
@@ -38,10 +65,16 @@ public struct ScoreLinkParam : INetSerializeable
 public class ScoreAndSpawnManager : NetBehavior
 {
 
+    [SerializeField] private NetObject scoreAndSpawnUIPrefab;
+
     public static ScoreAndSpawnManager Instance { get; private set; }
 
-    public int spawnCount { get; private set; } = 4;
+    public int SpawnCount { get; private set; } = 4;
+    public int Score { get; private set; }
     private PlayerType currentPlayerType;
+
+    public event Action<PlayerType, int> OnCatchPlayer;
+    public event Action<PlayerType, int> OnAddScore;
 
     private void Awake()
     {
@@ -57,6 +90,8 @@ public class ScoreAndSpawnManager : NetBehavior
 
         currentPlayerType = (PlayerType)NetworkManager.Instance.ClientId - 1;
 
+        NetworkManager.Instance.SpawnNetObject(scoreAndSpawnUIPrefab.name, Vector3.zero, Quaternion.identity);
+
     }
 
     public void SpawnPlayer(PlayerType playerType)
@@ -65,7 +100,7 @@ public class ScoreAndSpawnManager : NetBehavior
         if(currentPlayerType == playerType)
         {
 
-            spawnCount--;
+            SpawnCount--;
 
         }
 
@@ -74,18 +109,40 @@ public class ScoreAndSpawnManager : NetBehavior
     public void CatchPlayer(PlayerType type, int count)
     {
 
-        var p = new ScoreLinkParam() { score = count, playerType = type };
+        var p = new CatchLinkParam() { score = count, playerType = type };
 
         LinkMethod(CatchPlayerLink, p);
 
     }
 
-    public void CatchPlayerLink(ScoreLinkParam param)
+    public void AddScore(PlayerType type, int count)
     {
+
+        var p = new ScoreLinkParam() { score = count, playerType = type };
+
+        LinkMethod(AddScoreLink, p);
+
+    }
+
+    public void CatchPlayerLink(CatchLinkParam param)
+    {
+
+        OnCatchPlayer?.Invoke(param.playerType, param.score);
 
         if (param.playerType != currentPlayerType) return;
 
-        spawnCount += param.score;
+        SpawnCount += param.score;
+
+    }
+
+    public void AddScoreLink(ScoreLinkParam param)
+    {
+
+        OnAddScore?.Invoke(param.playerType, param.score);
+
+        if (param.playerType != currentPlayerType) return;
+
+        Score += param.score;
 
     }
 
