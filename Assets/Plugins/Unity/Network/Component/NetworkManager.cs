@@ -255,6 +255,8 @@ namespace UnityNet
 
             if (!IsConnected) return;
 
+            if (session == null) return;
+
             session.Send(packet.Write());
 
         }
