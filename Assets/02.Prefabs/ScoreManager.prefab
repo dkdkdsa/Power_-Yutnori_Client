@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b89d8c693c2b84d806d0613111a1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreAndSpawnUIPrefab: {fileID: 7237868984922100294, guid: 536ca841551edbe4789a1ea898c63223, type: 3}
+  winTextPrefab: {fileID: 8664363150072827818, guid: 9166af9bb24eff04d8ed1eb22dccb948, type: 3}
 --- !u!114 &727955379453538243
 MonoBehaviour:
   m_ObjectHideFlags: 0

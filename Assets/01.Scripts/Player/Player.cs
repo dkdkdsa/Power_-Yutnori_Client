@@ -67,7 +67,7 @@ public class Player : NetBehavior
 
             if(nextDir == Vector2.zero)
             {
-                Debug.Log("rhf");
+                ScoreAndSpawnManager.Instance.AddScore(_playerType, stackCount);
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();

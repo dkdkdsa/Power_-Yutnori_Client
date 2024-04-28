@@ -63,6 +63,13 @@ namespace UnityNet
 
         }
 
+        public void Disconnect()
+        {
+
+            session.Disconnect();
+
+        }
+
         public void TurnChanged(int currentTurn)
         {
 

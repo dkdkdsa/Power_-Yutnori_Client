@@ -2,6 +2,7 @@ using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityNet;
 
@@ -62,10 +63,34 @@ public struct ScoreLinkParam : INetSerializeable
 
 }
 
+public struct WinLinkParam : INetSerializeable
+{
+    public PlayerType playerType;
+
+    public void Deserialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        int res = 0;
+        Serializer.Deserialize(ref res, ref buffer, ref count);
+
+        playerType = (PlayerType)res;
+
+    }
+
+    public void Serialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        ((int)playerType).Serialize(ref buffer, ref count);
+
+    }
+
+}
+
 public class ScoreAndSpawnManager : NetBehavior
 {
 
     [SerializeField] private NetObject scoreAndSpawnUIPrefab;
+    [SerializeField] private TMP_Text winTextPrefab;
 
     public static ScoreAndSpawnManager Instance { get; private set; }
 
@@ -73,7 +98,6 @@ public class ScoreAndSpawnManager : NetBehavior
     public int Score { get; private set; }
     private PlayerType currentPlayerType;
 
-    public event Action<PlayerType, int> OnCatchPlayer;
     public event Action<PlayerType, int> OnAddScore;
 
     private void Awake()
@@ -127,8 +151,6 @@ public class ScoreAndSpawnManager : NetBehavior
     public void CatchPlayerLink(CatchLinkParam param)
     {
 
-        OnCatchPlayer?.Invoke(param.playerType, param.score);
-
         if (param.playerType != currentPlayerType) return;
 
         SpawnCount += param.score;
@@ -143,6 +165,25 @@ public class ScoreAndSpawnManager : NetBehavior
         if (param.playerType != currentPlayerType) return;
 
         Score += param.score;
+
+        if(Score == 4)
+        {
+
+            var p = new WinLinkParam { playerType = currentPlayerType };
+
+            LinkMethod(WinLink, p);
+
+        }
+
+    }
+
+    public void WinLink(WinLinkParam p)
+    {
+
+        NetworkManager.Instance.Disconnect();
+
+        Instantiate(winTextPrefab, Vector3.zero, Quaternion.identity).text 
+            = $"WIN : {p.playerType.ToString()}";
 
     }
 
