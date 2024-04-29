@@ -13,6 +13,7 @@ namespace UnityNet
     {
         [Header("Network")]
         [SerializeField] private int port = 7777;
+        [SerializeField] private string ip;
 
         [Header("Prefab")]
         [SerializeField] private NetworkPrefabs prefabs;
@@ -54,8 +55,15 @@ namespace UnityNet
 
             IPHostEntry iphost = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddr = iphost.AddressList[1];
-            IPEndPoint endPoint = new IPEndPoint(ipAddr, port); // IP주소, 포트번호 입력
 
+            if(ip != string.Empty)
+            {
+
+                ipAddr = IPAddress.Parse(ip);
+
+            }
+
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, port); // IP주소, 포트번호 입력
             Connector connector = new Connector();
             connector.Connect(endPoint, () => { return session; });
 

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityNet;
+using Random = UnityEngine.Random;
 
 public enum YutState
 {
@@ -20,11 +22,18 @@ public class YutSystem : MonoBehaviour
 
     [SerializeField] private GameObject uiPrefab;
     [SerializeField] private GameObject oneMorePrefab;
+    [SerializeField] private GameObject yutStateUIPrefab;
 
     private List<YutState> states = new();
     private YutUI yutUI;
+    private YutStateUI yutStateUI;
     private PlayersController playerController;
     private bool throwAble = true;
+    private int loopCnt;
+    public int currentSelectIdx { get; private set; } = -1;
+
+    public event Action<YutState> OnThrow;
+    public event Action<YutState> OnMove;
 
     private void Start()
     {
@@ -42,6 +51,7 @@ public class YutSystem : MonoBehaviour
 
             NetworkManager.Instance.SpawnNetObject(uiPrefab.name, Vector3.zero, Quaternion.identity);
             NetworkManager.Instance.SpawnNetObject("ScoreManager", Vector3.zero, Quaternion.identity);
+            NetworkManager.Instance.SpawnNetObject(yutStateUIPrefab.name, Vector3.zero, Quaternion.identity);
 
         }
 
@@ -51,6 +61,13 @@ public class YutSystem : MonoBehaviour
     {
 
         yutUI = ui;
+
+    }
+
+    public void SetUI(YutStateUI ui)
+    {
+
+        yutStateUI = ui;
 
     }
 
@@ -81,9 +98,12 @@ public class YutSystem : MonoBehaviour
 
         }
 
+        loopCnt++;
         states.Add(GetYutState(res));
 
         yutUI.SetUILink(GetYutState(res), res);
+        yutStateUI.ThrowYut(GetYutState(res), states.Count - 1);
+
 
     }
 
@@ -112,10 +132,17 @@ public class YutSystem : MonoBehaviour
     {
 
         bool state = false;
+        bool rethrow = false;
         throwAble = false;
         Debug.Log("?!");
-        foreach (var item in states)
+        int cnt = loopCnt;
+        for (int it = 0; it < cnt; it++)
         {
+
+
+            yield return StartCoroutine(WaitSelectCo());
+            var item = states[currentSelectIdx];
+            loopCnt--;
 
             Player[] players = FindObjectsOfType<Player>()
                 .Where(p => p.NetObject.IsOwner)
@@ -133,9 +160,37 @@ public class YutSystem : MonoBehaviour
                 playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
             }
 
-            playerController.PlayerMoveEventHandler((int)item, (x) => state = true);
+            playerController.PlayerMoveEventHandler((int)item, (x) =>
+            {
+
+                if (x == true)
+                {
+
+                    rethrow = true;
+
+                }
+
+                state = true;
+
+            });
+
+
+            currentSelectIdx = -1;
 
             yield return new WaitUntil(() => state);
+            yutStateUI.Move(item, currentSelectIdx);
+
+            if (rethrow)
+            {
+
+                NetworkManager.Instance.SpawnNetObject(oneMorePrefab.name,
+                    Vector3.zero, Quaternion.identity, NetworkManager.Instance.ClientId);
+
+                throwAble = true;
+
+                yield break;
+
+            }
 
             yield return new WaitForSeconds(0.5f);
 
@@ -143,10 +198,25 @@ public class YutSystem : MonoBehaviour
 
         }
 
+        loopCnt = 0;
         throwAble = true;
         states.Clear();
 
         TurnManager.Instance.ChangeTurn();
+
+    }
+
+    public void Select(int idx)
+    {
+
+        currentSelectIdx = idx;
+
+    }
+
+    private IEnumerator WaitSelectCo()
+    {
+
+        yield return new WaitUntil(() =>  currentSelectIdx != -1);
 
     }
 

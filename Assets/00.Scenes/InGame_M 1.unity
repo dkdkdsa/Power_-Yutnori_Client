@@ -9980,6 +9980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 8615700554610669634, guid: 90ca9978cbf64d841811eae1e6948e05, type: 3}
   oneMorePrefab: {fileID: 2509212601631314079, guid: bb16c5281acd26a4eb93a6f9cca44e44, type: 3}
+  yutStateUIPrefab: {fileID: 7629824136457802244, guid: df78283bf0b691f409499f68d05275fd, type: 3}
 --- !u!114 &1362476191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10044,6 +10045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 7777
+  ip: 
   prefabs: {fileID: 11400000, guid: 5cb6981a1063fb54480e9ace6866275c, type: 2}
 --- !u!1 &1400457675
 GameObject:

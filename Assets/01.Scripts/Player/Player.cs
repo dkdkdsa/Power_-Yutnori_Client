@@ -71,7 +71,7 @@ public class Player : NetBehavior
                 isArrived = true;
                 isPiecedOnBoard = false;
                 NetObject.Despawn();
-                moveEndCallBack?.Invoke(true);
+                moveEndCallBack?.Invoke(false);
                 yield break;
             }
 
@@ -80,18 +80,18 @@ public class Player : NetBehavior
         }
 
 
-        CheckPlayerCatch();
+        var res = CheckPlayerCatch();
 
         //TurnManager.Instance.ChangeTurn();
-        moveEndCallBack?.Invoke(false);
+        moveEndCallBack?.Invoke(res);
     }
 
-    private void CheckPlayerCatch()
+    private bool CheckPlayerCatch()
     {
 
         var obj = Physics.OverlapBox(transform.position, Vector3.one / 2, Quaternion.identity, _playerLayer);
 
-        if (obj.Length == 0) return;
+        if (obj.Length == 0) return false;
 
 
         foreach(var item in obj)
@@ -107,6 +107,7 @@ public class Player : NetBehavior
 
                     ScoreAndSpawnManager.Instance.CatchPlayer(compo._playerType, compo.stackCount);
                     compo.NetObject.Despawn();
+                    return true;
 
                 }
                 else if (compo._playerType == _playerType)
@@ -117,10 +118,13 @@ public class Player : NetBehavior
 
                 }
 
+
+
             }
 
         }
 
+        return false;
 
     }
 
