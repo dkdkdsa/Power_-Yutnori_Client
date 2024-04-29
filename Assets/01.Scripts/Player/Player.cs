@@ -150,12 +150,15 @@ public class Player : NetBehavior
 
     private void OnMouseDown()
     {
+        TrySelectPlayer();
+    }
+
+    public void TrySelectPlayer()
+    {
         if (NetObject.IsOwner && canSelect)
         {
             SelectPlayer();
         }
-        Debug.Log($"IsOwner: {NetObject.IsOwner}");
-        Debug.Log($"canSelect: {canSelect}");
     }
 
     private void OnEnable()
