@@ -126,6 +126,7 @@ public class YutSystem : MonoBehaviour
 
         }
 
+        SignalHub.OnSetEnableButtonEvent?.Invoke();
     }
 
     private IEnumerator MoveCo()
@@ -155,10 +156,10 @@ public class YutSystem : MonoBehaviour
 
             Debug.Log(players.Length);
 
-            if (players.Length == 0)
-            {
-                playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
-            }
+            //if (players.Length == 0)
+            //{
+            //    playerController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
+            //}
 
             playerController.PlayerMoveEventHandler((int)item, (x) =>
             {

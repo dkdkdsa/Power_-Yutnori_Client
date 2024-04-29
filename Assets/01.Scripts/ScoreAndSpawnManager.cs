@@ -86,6 +86,30 @@ public struct WinLinkParam : INetSerializeable
 
 }
 
+public struct SpawnPlayerParam : INetSerializeable
+{
+
+    public PlayerType playerType;
+
+    public void Deserialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        int res = 0;
+        Serializer.Deserialize(ref res, ref buffer, ref count);
+
+        playerType = (PlayerType)res;
+
+    }
+
+    public void Serialize(ref ArraySegment<byte> buffer, ref ushort count)
+    {
+
+        ((int)playerType).Serialize(ref buffer, ref count);
+
+    }
+
+}
+
 public class ScoreAndSpawnManager : NetBehavior
 {
 
@@ -99,6 +123,11 @@ public class ScoreAndSpawnManager : NetBehavior
     private PlayerType currentPlayerType;
 
     public event Action<PlayerType, int> OnAddScore;
+    public event Action<PlayerType, int> OnPlayerCatch;
+    public event Action<PlayerType> OnSpawnPlayer;
+
+    private bool isSpawnButtonClick;
+    public bool IsSpawnButtonClick => isSpawnButtonClick;
 
     private void Awake()
     {
@@ -128,6 +157,10 @@ public class ScoreAndSpawnManager : NetBehavior
 
         }
 
+        var p = new SpawnPlayerParam { playerType = playerType };
+
+        LinkMethod(SpawnPlayerLink, p);
+
     }
 
     public void CatchPlayer(PlayerType type, int count)
@@ -148,8 +181,17 @@ public class ScoreAndSpawnManager : NetBehavior
 
     }
 
+    public void SpawnPlayerLink(SpawnPlayerParam param)
+    {
+
+        OnSpawnPlayer?.Invoke(param.playerType);
+
+    }
+
     public void CatchPlayerLink(CatchLinkParam param)
     {
+
+        OnPlayerCatch?.Invoke(param.playerType, param.score);
 
         if (param.playerType != currentPlayerType) return;
 
@@ -187,4 +229,9 @@ public class ScoreAndSpawnManager : NetBehavior
 
     }
 
+    public void SpawnButtonClick()
+    {
+        isSpawnButtonClick = true;
+        CoroutineUtil.CallWaitForSeconds(1, () => isSpawnButtonClick = false);
+    }
 }

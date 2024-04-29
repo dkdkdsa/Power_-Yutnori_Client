@@ -14,6 +14,8 @@ public class TurnManager : MonoBehaviour
 
     public static TurnManager Instance;
 
+    public event Action OnChangeTurnEvent;
+    
     private TurnType _curTurnType;
     public TurnType CurTurnType => _curTurnType;
     public bool MyTurn 
@@ -32,7 +34,7 @@ public class TurnManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError("BoardManager is multiple");
+            Debug.LogError("TurnManager is multiple");
         }
 
         Instance = this;
@@ -43,14 +45,13 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-
         NetworkManager.Instance.OnTurnChangeEvent += HandleTurnChanged;
 
     }
 
     private void HandleTurnChanged(int obj)
     {
-
+        OnChangeTurnEvent?.Invoke();
         _curTurnType = (TurnType)obj;
 
     }
@@ -62,7 +63,8 @@ public class TurnManager : MonoBehaviour
 
         NetworkManager.Instance.SendPacket(p);
 
+
         //yutUI.gameObject.SetActive(true);
-        
+
     }
 }

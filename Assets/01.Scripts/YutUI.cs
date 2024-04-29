@@ -55,9 +55,11 @@ public class YutUI : NetBehavior
 
             var obj = transform.GetChild(i);
 
-            yutImages.Add(obj.GetComponent<Image>());
-            yuts.Add(obj.GetComponent<Yut>());
-
+            if (obj.TryGetComponent(out Yut yut))
+            {
+                yutImages.Add(obj.GetComponent<Image>());
+                yuts.Add(obj.GetComponent<Yut>());
+            }
         }
 
         _playersController = FindObjectOfType<PlayersController>();

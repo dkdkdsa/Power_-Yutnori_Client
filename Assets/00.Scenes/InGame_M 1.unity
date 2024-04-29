@@ -11231,7 +11231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 330724422394814461, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: MoveDistance
-      value: 1.3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 497404847274188607, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: m_IsActive
@@ -11263,7 +11263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718665473253860651, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: MoveDistance
-      value: 1.3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1935408614976084873, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: MoveDistance
@@ -11335,7 +11335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6307624023721488777, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: MoveDistance
-      value: 1.3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6531698607165273494, guid: fd59489086017b64e984e31763789c60, type: 3}
       propertyPath: MoveDistance
