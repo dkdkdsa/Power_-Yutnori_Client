@@ -208,7 +208,7 @@ public class ScoreAndSpawnManager : NetBehavior
 
         Score += param.score;
 
-        if(Score == 4)
+        if(Score == 3)
         {
 
             var p = new WinLinkParam { playerType = currentPlayerType };

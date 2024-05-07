@@ -176,10 +176,9 @@ public class YutSystem : MonoBehaviour
             });
 
 
-            currentSelectIdx = -1;
-
             yield return new WaitUntil(() => state);
             yutStateUI.Move(item, currentSelectIdx);
+            currentSelectIdx = -1;
 
             if (rethrow)
             {

@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yutStateText: {fileID: 4451279563410017460, guid: 675fe5261047a384aa14610071d88920, type: 3}
+  throwTextPrefab: {fileID: 8364848822158614220, guid: c517b182e8e8ff441850c9fea91c74e2, type: 3}
   yutStateTrm: {fileID: 4593274635334195603}
 --- !u!1 &8790802288247212411
 GameObject:

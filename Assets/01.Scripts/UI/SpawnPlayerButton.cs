@@ -12,6 +12,7 @@ public class SpawnPlayerButton : MonoBehaviour
     private PlayersController _playersController;
 
     private Button _button;
+    private YutSystem _yutSystem;
 
     private void OnEnable()
     {
@@ -30,6 +31,7 @@ public class SpawnPlayerButton : MonoBehaviour
         _button = GetComponent<Button>();
         _playersController = FindObjectOfType<PlayersController>();
         _playerCountUI = transform.parent.GetComponent<PlayerCountUI>();
+        _yutSystem = FindObjectOfType<YutSystem>();
     }
 
     private void Start()
@@ -49,6 +51,9 @@ public class SpawnPlayerButton : MonoBehaviour
 
     public void SpawnButtonClickHandler()
     {
+
+        if (_yutSystem.currentSelectIdx == -1) return;
+
         _playersController.SpawnPlayer((PlayerType)NetworkManager.Instance.ClientId - 1);
 
         //if (ScoreAndSpawnManager.Instance.IsSpawnButtonClick && ScoreAndSpawnManager.Instance.SpawnCount > 0)

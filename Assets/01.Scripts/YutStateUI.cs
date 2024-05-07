@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityNet;
+using DG.Tweening;
 
 public struct YutStateLinkParam : INetSerializeable
 {
@@ -36,6 +37,7 @@ public class YutStateUI : NetBehavior
 {
 
     [SerializeField] private YutStateSlot yutStateText;
+    [SerializeField] private TMP_Text throwTextPrefab;
     [SerializeField] private Transform yutStateTrm;
 
     private List<YutStateSlot> slots = new();
@@ -52,6 +54,14 @@ public class YutStateUI : NetBehavior
     {
 
         LinkMethod(ThrowYutLink, new YutStateLinkParam { yutState = yutState, idx = idx });
+
+        var obj = Instantiate(throwTextPrefab, Vector3.zero, Quaternion.identity);
+        obj.text = GetYutText(yutState);
+
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(0.3f);
+        seq.Append(obj.DOFade(0, 1.5f));
+        seq.AppendCallback(() => Destroy(obj.gameObject));
 
     }
 
@@ -76,7 +86,23 @@ public class YutStateUI : NetBehavior
 
         var obj = slots.Find(x => x.curIdx == param.idx);
         slots.Remove(obj);
+        //?
         Destroy(obj.gameObject);
+
+    }
+
+    private string GetYutText(YutState state)
+    {
+
+        return state switch
+        {
+            YutState.Do => "µµ",
+            YutState.Gay => "°³",
+            YutState.Girl => "°É",
+            YutState.Yut => "À·",
+            YutState.Mo => "¸ð",
+            _ => string.Empty,
+        };
 
     }
 
