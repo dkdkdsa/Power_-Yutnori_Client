@@ -70,6 +70,8 @@ public class YutUI : NetBehavior
 
         var list = yutImages.ToList();
 
+        SoundManager.Play2DSound(SoundName.RollingYut);
+
         Sequence seq = DOTween.Sequence();
 
         foreach(var item in yuts)

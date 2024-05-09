@@ -57,6 +57,7 @@ public class Player : NetBehavior
             Vector2 nextDir = new Vector2(transform.position.x,
                                         transform.position.y + 1.5f);
             transform.DOMove(nextDir, moveSpeed);
+            LinkMethod(MoveSoundLink);
             stepCount--;
             yield return new WaitForSeconds(movedelay);
         }
@@ -84,6 +85,13 @@ public class Player : NetBehavior
 
         //TurnManager.Instance.ChangeTurn();
         moveEndCallBack?.Invoke(res);
+    }
+
+    public void MoveSoundLink()
+    {
+
+        SoundManager.Play2DSound(SoundName.BoardMove);
+
     }
 
     private bool CheckPlayerCatch()
@@ -139,6 +147,8 @@ public class Player : NetBehavior
         stackCount++;
 
         stackText.text = stackCount.ToString();
+
+        SoundManager.Play2DSound(SoundName.Carry);
 
     }
 

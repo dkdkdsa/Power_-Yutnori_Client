@@ -135,7 +135,6 @@ public class YutSystem : MonoBehaviour
         bool state = false;
         bool rethrow = false;
         throwAble = false;
-        Debug.Log("?!");
         int cnt = loopCnt;
         for (int it = 0; it < cnt; it++)
         {

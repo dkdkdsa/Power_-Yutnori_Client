@@ -8,6 +8,8 @@ public enum SoundName
     None,
     RollingYut,
     BoardMove,
+    Carry,
+    Catch
 
 }
 
@@ -63,7 +65,7 @@ public class SoundManager : MonoBehaviour
         GameObject obj = new GameObject();
         var source = obj.AddComponent<AudioSource>();
 
-        AudioClip clip = Resources.Load<AudioClip>($"Sound/{clipName.ToString()}");
+        AudioClip clip = Resources.Load<AudioClip>($"{clipName.ToString()}");
 
         source.clip = clip;
         source.spatialBlend = 0;

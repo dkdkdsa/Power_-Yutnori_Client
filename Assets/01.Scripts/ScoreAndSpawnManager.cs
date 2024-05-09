@@ -191,6 +191,8 @@ public class ScoreAndSpawnManager : NetBehavior
     public void CatchPlayerLink(CatchLinkParam param)
     {
 
+
+        SoundManager.Play2DSound(SoundName.Catch);
         OnPlayerCatch?.Invoke(param.playerType, param.score);
 
         if (param.playerType != currentPlayerType) return;
